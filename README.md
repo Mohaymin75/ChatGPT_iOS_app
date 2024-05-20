@@ -17,3 +17,7 @@
     2.Chat Interface: Interactive chat interface for user-bot communication.
     3.API Integration: Leverages the OpenAI API for generating responses.
     4.Launch Screens: Attractive launch screens that set the initial user impression.
+    5.Dark Mode and Light Mode: Toggle between themes for enhanced visual comfort.
+    6.Simple Settings Menu: Allows users to customize their app experience
+    7.Personalization: Tailors responses based on user interaction history.
+    8.Session History: Users can review past interactions with search functionality.
