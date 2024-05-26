@@ -15,23 +15,16 @@
    3rd-Party API: https://huggingface.co/docs/api-inference/en/index
   
  # Features:
- - Mohaymin
- 
-    1.User Authentication: Secure sign-in and profile management.
-    2.Chat Interface: Interactive chat interface for user-bot communication.
-    3.API Integration: Leverages the OpenAI API for generating responses.
-    4.Launch Screens: Attractive launch screens that set the initial user impression.
-    
- - Israt
- 
-    5.Dark Mode and Light Mode: Toggle between themes for enhanced visual comfort.
-    6.Simple Settings Menu: Allows users to customize their app experience
-    7.Personalization: Tailors responses based on user interaction history.
-    8.Session History: Users can review past interactions with search functionality.
-    
- - Saiaf 
- 
-    9.Quick Replies: Facilitates faster interactions with common phrases.
-   10.Push Notifications: Engages users with timely notifications about the app.
-   11.Feedback System: Collects user inputs to improve chatbot responses.
-   12.Help and Tutorials: Guides to assist new users in navigating the app features.
+
+    1. Users can sign in and manage their profiles.
+    2. Users can interact with the chatbot through a user-friendly interface.
+    3. Users can upload images for the chatbot to analyze and respond to.
+    4. Users can receive personalized responses based on their interaction history.
+    5. Users can receive notifications to remind them to interact with the chatbot or inform them about new features or updates.
+    6. Users can start new chat sessions to organize their interactions.
+    7. Users can switch between dark and light themes for comfort and accessibility.
+    8. Users can see attractive launch screens while the app is loading, providing visual appeal and branding.
+    9. Users can adjust preferences such as notification settings, theme choice, and data usage through a simple settings menu.
+   10. Users can view past interactions with the chatbot, searchable by date or keyword.
+   11. Users can tap on predefined quick replies to quickly respond to common questions or statements.
+   12. Users can access help sections or tutorial videos to guide them on how to use the chatbot effectively, including tips on asking questions or exploring features.
