@@ -16,18 +16,15 @@
   
  # Features:
 
-    1. Users can sign in and manage their profiles.
-    2. Users can interact with the chatbot through a user-friendly interface. 
-    3. Users can upload images for the chatbot to analyze and respond to.
-    4. Users can see attractive launch screens while the app is loading, 
-       providing visual appeal and branding.
-    5. Users can switch between dark and light themes for comfort and accessibility.
-    6. Users can adjust preferences such as notification settings, theme choice, 
-       and data usage through a simple settings menu.
-    7. Users can receive personalized responses based on their interaction history.
-    8. Users can view past interactions with the chatbot, searchable by date or keyword.
-    9. Users can tap on predefined quick replies to quickly respond 
-       to common questions or statements.
-   10. Users can receive notifications to remind them to interact with the chatbot or inform them about new features or updates.
-   11. Users can start new chat sessions to organize their interactions.
-   12. Users can access help sections or tutorial videos to guide them on how to use the chatbot effectively, including tips on asking questions or exploring features.
+    •    Users can sign in and manage their profiles.
+    •    Users can interact with the chatbot through a user-friendly interface. 
+    •    Users can upload images for the chatbot to analyze and respond to.
+    •    Users can see attractive launch screens while the app is loading, providing visual appeal, and branding.
+    •    Users can switch between dark and light themes for comfort and accessibility.
+    •    Users can adjust preferences such as notification settings, theme choice, and data usage through a simple settings menu.
+    •    Users can receive personalized responses based on their interaction history.
+    •    Users can view past interactions with the chatbot, searchable by date or keyword.
+    •    Users can tap on predefined quick replies to quickly respond to common questions or statements.
+    •    Users can receive notifications to remind them to interact with the chatbot or inform them about new features or updates.
+    •    Users can start new chat sessions to organize their interactions.
+    •    Users can access help sections or tutorial videos to guide them on how to use the chatbot effectively, including tips on asking questions or exploring features.
