@@ -23,7 +23,7 @@
     •    Users can switch between dark and light themes for comfort and accessibility.
     •    Users can adjust preferences such as notification settings, theme choice, and data usage through a simple settings menu.
     •    Users can receive personalized responses based on their interaction history.
-    •    Users can view past interactions with the chatbot, searchable by date or keyword.
+    •    Users can view past interactions with the chatbot, and delete the interactions.
     •    Users can tap on predefined quick replies to quickly respond to common questions or statements.
     •    Users can receive notifications to remind them to interact with the chatbot or inform them about new features or updates.
     •    Users can start new chat sessions to organize their interactions.
