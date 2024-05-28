@@ -16,15 +16,15 @@
   
  # Features:
 
-    •    Users can sign in and manage their profiles.
-    •    Users can interact with the chatbot through a user-friendly interface. 
-    •    Users can upload images for the chatbot to analyze and respond to.
-    •    Users can see attractive launch screens while the app is loading, providing visual appeal, and branding.
-    •    Users can switch between dark and light themes for comfort and accessibility.
-    •    Users can adjust preferences such as notification settings, theme choice, and data usage through a simple settings menu.
-    •    Users can receive personalized responses based on their interaction history.
-    •    Users can view past interactions with the chatbot, and delete the interactions.
-    •    Users can tap on predefined quick replies to quickly respond to common questions or statements.
-    •    Users can receive notifications to remind them to interact with the chatbot or inform them about new features or updates.
-    •    Users can start new chat sessions to organize their interactions.
-    •    Users can access help sections or tutorial videos to guide them on how to use the chatbot effectively, including tips on asking questions or exploring features.
+    •    Users can authenticate themselves.
+    •    Users can interact with the chatbot. 
+    •    Users can view their history.
+    •    Users can create a new chat session.
+    •    Users can search their history.
+    •    Users can see a splash screen on app launch.
+    •    Users can bookmark and name their session.
+    •    Users can delete their data.
+    •    Users can export their data.
+    •    Users can access a tutorial for using the app.
+    •    Users can switch to dark mode.
+    •    Users can change the application language.
