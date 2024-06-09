@@ -12,7 +12,7 @@
  
  
 # Data Source:
-   3rd-Party API: https://huggingface.co/docs/api-inference/en/index
+   3rd-Party API: "Open AI API key"
   
  # Features:
 
