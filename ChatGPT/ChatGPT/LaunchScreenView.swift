@@ -1,8 +1,8 @@
 //
 //  LaunchScreenView.swift
-//  ChatGPT
+//  ConvoTrack
 //
-//  Created by Mohaymin Islam on 2024-05-16.
+//  Created by Mohaymin Islam on 2024-06-19.
 //
 
 import SwiftUI
