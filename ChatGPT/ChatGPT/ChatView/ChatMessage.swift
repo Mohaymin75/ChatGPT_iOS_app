@@ -1,15 +1,15 @@
 //
 //  ChatMessage.swift
-//  ChatGPT
+//  ConvoTrack
 //
-//  Created by Mohaymin Islam on 2024-05-22.
+//  Created by Mohaymin Islam on 2024-06-19.
 //
 
 import Foundation
 
-struct ChatMessage: Identifiable, Codable {
+struct ChatMessage: Identifiable, Codable, Equatable {
     let id: String
-    let content: String
-    let isUser: Bool
+    let text: String
+    let isUserMessage: Bool
     let timestamp: Date
 }

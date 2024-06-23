@@ -1,42 +1,93 @@
 //
 //  ChatDetailViewModel.swift
-//  ChatGPT
+//  ConvoTrack
 //
-//  Created by Mohaymin Islam on 2024-05-22.
+//  Created by Mohaymin Islam on 2024-06-19.
 //
 
-import Foundation
 import SwiftUI
+import CoreData
 
 class ChatDetailViewModel: ObservableObject {
     @Published var chat: AppChat
-    @Published var messages: [Message] = []
+    @Published var messages: [ChatMessage] = []
     @Published var userMessage: String = ""
-    @Published var selectedModel: ChatModel = .gpt3_5_turbo
-
+    @Published var selectedModel: ChatModel
+    private let managedObjectContext: NSManagedObjectContext
     private let apiService = OpenAIAPIService()
-
-    init(chat: AppChat) {
+    
+    init(chat: AppChat, context: NSManagedObjectContext) {
         self.chat = chat
+        self.selectedModel = chat.model ?? .gpt3_5_turbo
+        self.managedObjectContext = context
+        loadMessages()
+    }
+    
+    private func loadMessages() {
+        let fetchRequest: NSFetchRequest<MessageEntity> = MessageEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "chat.id == %@", chat.id)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: true)]
+        
+        do {
+            let messageEntities = try managedObjectContext.fetch(fetchRequest)
+            self.messages = messageEntities.map { entity in
+                ChatMessage(id: entity.id!, text: entity.text!, isUserMessage: entity.isUserMessage, timestamp: entity.timestamp!)
+            }
+        } catch {
+            print("Failed to fetch messages: \(error)")
+        }
     }
     
     func sendMessage() {
-        print("sendMessage called with text: \(userMessage)")
-        let userMsg = Message(text: userMessage, isUserMessage: true)
-        messages.append(userMsg)
+        guard !userMessage.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
+        
+        let newMessage = ChatMessage(id: UUID().uuidString, text: userMessage, isUserMessage: true, timestamp: Date())
+        saveMessage(newMessage)
         userMessage = ""
-
-        apiService.sendMessage(userMsg.text, model: selectedModel) { [weak self] (result: Result<String, Error>) in
+        
+        apiService.sendMessage(newMessage.text, model: selectedModel) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let responseText):
-                    print("API response: \(responseText)")
-                    let botMsg = Message(text: responseText, isUserMessage: false)
-                    self?.messages.append(botMsg)
+                    let botMessage = ChatMessage(id: UUID().uuidString, text: responseText, isUserMessage: false, timestamp: Date())
+                    self?.saveMessage(botMessage)
                 case .failure(let error):
                     print("Error sending message: \(error)")
                 }
             }
         }
     }
+    
+    private func saveMessage(_ message: ChatMessage) {
+        let entity = MessageEntity(context: managedObjectContext)
+        entity.id = message.id
+        entity.text = message.text
+        entity.isUserMessage = message.isUserMessage
+        entity.timestamp = message.timestamp
+        
+        let fetchRequest: NSFetchRequest<ChatEntity> = ChatEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", chat.id)
+        
+        do {
+            let results = try managedObjectContext.fetch(fetchRequest)
+            if let chatEntity = results.first {
+                entity.chat = chatEntity
+                chatEntity.lastMessageSent = message.timestamp
+            } else {
+                let chatEntity = ChatEntity(context: managedObjectContext)
+                chatEntity.id = chat.id
+                chatEntity.topic = chat.topic
+                chatEntity.model = chat.model?.rawValue
+                chatEntity.lastMessageSent = message.timestamp
+                chatEntity.owner = chat.owner
+                entity.chat = chatEntity
+            }
+            
+            try managedObjectContext.save()
+            self.messages.append(message)
+        } catch {
+            print("Failed to save message: \(error)")
+        }
+    }
+    
 }

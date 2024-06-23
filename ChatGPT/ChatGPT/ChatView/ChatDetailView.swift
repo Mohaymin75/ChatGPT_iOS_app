@@ -1,15 +1,22 @@
 //
 //  ChatDetailView.swift
-//  ChatGPT
+//  ConvoTrack
 //
-//  Created by Mohaymin Islam on 2024-05-22.
+//  Created by Mohaymin Islam on 2024-06-19.
 //
+
+
 
 import SwiftUI
 
 struct ChatDetailView: View {
     @ObservedObject var viewModel: ChatDetailViewModel
-    @State private var selectedModel: ChatModel = .gpt3_5_turbo
+    @State private var selectedModel: ChatModel
+    
+    init(viewModel: ChatDetailViewModel) {
+        self.viewModel = viewModel
+        self._selectedModel = State(initialValue: viewModel.selectedModel)
+    }
     
     var body: some View {
         VStack {
@@ -97,6 +104,6 @@ struct ChatDetailView: View {
 
 struct ChatDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatDetailView(viewModel: ChatDetailViewModel(chat: AppChat(id: "1", topic: "New Chat", model: .gpt3_5_turbo, lastMessageSent: Date(), owner: "123")))
+        let context = PersistenceController.shared.container.viewContext
     }
 }

@@ -1,14 +1,14 @@
 //
 //  APIService.swift
-//  ChatGPT
+//  ConvoTrack
 //
-//  Created by Mohaymin Islam on 2024-05-22.
+//  Created by Mohaymin Islam on 2024-06-19.
 //
 
 import Foundation
 
 class OpenAIAPIService {
-    private let apiKey = "Open AI API Key"
+    private let apiKey = "Open AI API KEY" //cannot be uploaded due to github security
     private let baseUrl = "https://api.openai.com/v1/chat/completions"
 
     func sendMessage(_ message: String, model: ChatModel, completion: @escaping (Result<String, Error>) -> Void) {
