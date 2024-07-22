@@ -84,7 +84,7 @@ class ChatDetailViewModel: ObservableObject {
                 }
             }
         }
-    
+    //saveMessage
     private func saveMessage(_ message: ChatMessage) {
         let entity = MessageEntity(context: managedObjectContext)
         entity.id = message.id
