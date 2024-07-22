@@ -48,38 +48,57 @@ struct ChatDetailView: View {
             .padding(.horizontal)
             
             ScrollViewReader { proxy in
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 12) {
-                        ForEach(viewModel.messages) { message in
-                            HStack {
-                                if message.isUserMessage {
-                                    Spacer()
-                                    Text(message.text)
-                                        .padding()
-                                        .background(Color.blue.opacity(0.1))
-                                        .cornerRadius(8)
-                                        .foregroundColor(.blue)
-                                        .id(message.id)
-                                } else {
-                                    Text(message.text)
-                                        .padding()
-                                        .background(Color.gray.opacity(0.1))
-                                        .cornerRadius(8)
-                                        .foregroundColor(.gray)
-                                        .id(message.id)
-                                    Spacer()
+                            ScrollView {
+                                VStack(alignment: .leading, spacing: 12) {
+                                    ForEach(viewModel.messages) { message in
+                                        HStack {
+                                            if message.isUserMessage {
+                                                Spacer()
+                                                Text(message.text)
+                                                    .padding()
+                                                    .background(Color.blue.opacity(0.1))
+                                                    .cornerRadius(8)
+                                                    .foregroundColor(.blue)
+                                                    .id(message.id)
+                                            } else {
+                                                VStack(alignment: .leading) {
+                                                    Text(message.text)
+                                                        .padding()
+                                                        .background(Color.gray.opacity(0.1))
+                                                        .cornerRadius(8)
+                                                        .foregroundColor(.gray)
+                                                        .id(message.id)
+                                                    
+                                                    HStack {
+                                                        Button(action: {
+                                                            UIPasteboard.general.string = message.text
+                                                        }) {
+                                                            Image(systemName: "doc.on.doc")
+                                                                .foregroundColor(.blue)
+                                                        }
+                                                        
+                                                        Button(action: {
+                                                            viewModel.regenerateResponse(for: message)
+                                                        }) {
+                                                            Image(systemName: "arrow.clockwise")
+                                                                .foregroundColor(.green)
+                                                        }
+                                                    }
+                                                    .padding(.leading)
+                                                }
+                                                Spacer()
+                                            }
+                                        }
+                                    }
+                                }
+                                .padding()
+                            }
+                            .onChange(of: viewModel.messages) { _ in
+                                if let lastMessage = viewModel.messages.last {
+                                    proxy.scrollTo(lastMessage.id, anchor: .bottom)
                                 }
                             }
                         }
-                    }
-                    .padding()
-                }
-                .onChange(of: viewModel.messages) { _ in
-                    if let lastMessage = viewModel.messages.last {
-                        proxy.scrollTo(lastMessage.id, anchor: .bottom)
-                    }
-                }
-            }
             
             HStack {
                 TextField("Type your message...", text: $viewModel.userMessage)
