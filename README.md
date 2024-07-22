@@ -22,9 +22,9 @@
     •    Users can create a new chat session.
     •    Users can search their history.
     •    Users can see a splash screen on app launch.
-    •    Users can bookmark and name their session.
+    •    Users can name their session.
     •    Users can delete their data.
-    •    Users can export their data.
+    •    Users can copy their data.
     •    Users can access a tutorial for using the app.
     •    Users can switch to dark mode.
-    •    Users can change the application language.
+    •    Users can bookmark any session.
