@@ -58,6 +58,33 @@ class ChatDetailViewModel: ObservableObject {
         }
     }
     
+    func regenerateResponse(for message: ChatMessage) {
+            guard !message.isUserMessage else { return }
+            
+            // Find the user message that triggered this response
+            if let index = messages.firstIndex(where: { $0.id == message.id }),
+               index > 0,
+               messages[index - 1].isUserMessage {
+                let userMessage = messages[index - 1].text
+                
+                // Remove the old AI response
+                messages.remove(at: index)
+                
+                // Call the API to get a new response
+                apiService.sendMessage(userMessage, model: selectedModel) { [weak self] result in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let responseText):
+                            let newBotMessage = ChatMessage(id: UUID().uuidString, text: responseText, isUserMessage: false, timestamp: Date())
+                            self?.saveMessage(newBotMessage)
+                        case .failure(let error):
+                            print("Error regenerating message: \(error)")
+                        }
+                    }
+                }
+            }
+        }
+    
     private func saveMessage(_ message: ChatMessage) {
         let entity = MessageEntity(context: managedObjectContext)
         entity.id = message.id
