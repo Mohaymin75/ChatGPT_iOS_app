@@ -22,6 +22,7 @@ class ChatListViewModel: ObservableObject {
     
     init(context: NSManagedObjectContext) {
         self.managedObjectContext = context
+        loadData()
     }
     
     func loadData() {
@@ -31,11 +32,13 @@ class ChatListViewModel: ObservableObject {
         do {
             let chatEntities = try managedObjectContext.fetch(fetchRequest)
             self.chats = chatEntities.map { entity in
-                AppChat(id: entity.id!,
-                        topic: entity.topic,
-                        model: ChatModel(rawValue: entity.model ?? ""),
-                        lastMessageSent: entity.lastMessageSent!,
-                        owner: entity.owner!)
+                AppChat(id: entity.id ?? UUID().uuidString,
+                        topic: entity.topic ?? "Unknown Topic",
+                        model: ChatModel(rawValue: entity.model ?? "") ?? .gpt3_5_turbo,
+                        lastMessageSent: entity.lastMessageSent ?? Date(),
+                        owner: entity.owner ?? "Unknown",
+                        messages: [],
+                        isBookmarked: entity.isBookmarked)
             }
             loadingState = chats.isEmpty ? .noResults : .resultFound
         } catch {
@@ -51,6 +54,7 @@ class ChatListViewModel: ObservableObject {
         newChat.model = ChatModel.gpt3_5_turbo.rawValue
         newChat.lastMessageSent = Date()
         newChat.owner = "CurrentUser" // Replace with actual user ID when implemented
+        newChat.isBookmarked = false
         
         do {
             try managedObjectContext.save()
@@ -94,7 +98,39 @@ class ChatListViewModel: ObservableObject {
             print("Failed to rename chat: \(error)")
         }
     }
-    
+
+    func toggleBookmark(for chat: AppChat) {
+        if let index = chats.firstIndex(where: { $0.id == chat.id }) {
+            chats[index].isBookmarked.toggle()
+            updateBookmarkInCoreData(for: chats[index])
+        }
+    }
+
+    private func updateBookmarkInCoreData(for chat: AppChat) {
+        let fetchRequest: NSFetchRequest<ChatEntity> = ChatEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", chat.id)
+        
+        do {
+            let results = try managedObjectContext.fetch(fetchRequest)
+            if let chatEntity = results.first {
+                chatEntity.isBookmarked = chat.isBookmarked
+                try managedObjectContext.save()
+            }
+        } catch {
+            print("Failed to update bookmark: \(error)")
+        }
+    }
+
+//    func searchChats() -> [AppChat] {
+//        if searchText.isEmpty {
+//            return chats
+//        } else {
+//            return chats.filter { chat in
+//                chat.topic.lowercased().contains(searchText.lowercased())
+//            }
+//        }
+//    }
+//}
     func searchChats() -> [AppChat] {
         if searchText.isEmpty {
             return chats

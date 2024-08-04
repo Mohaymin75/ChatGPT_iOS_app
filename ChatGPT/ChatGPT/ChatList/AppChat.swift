@@ -15,7 +15,7 @@ struct AppChat: Identifiable, Codable {
     var lastMessageSent: Date
     let owner: String
     var messages: [ChatMessage] = []
-
+    var isBookmarked: Bool
 
     var lastMessageTimeAgo: String {
         let now = Date()
@@ -38,14 +38,12 @@ struct AppChat: Identifiable, Codable {
     }
 }
 
-// States for loading chats
 enum ChatListState {
     case loading
     case noResults
     case resultFound
 }
 
-// Models of ChatGPT that can be used
 enum ChatModel: String, Codable, CaseIterable {
     case gpt3_5_turbo = "GPT 3.5 Turbo"
     case gpt4 = "GPT 4"
